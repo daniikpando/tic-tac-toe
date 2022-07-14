@@ -1,0 +1,21 @@
+<div>
+  <%= live_title_tag("❌ ⭕ | Game") %>
+  <.form 
+    id="party-form"
+    for={@changeset}
+    let={f}
+    as={:party_form}
+    phx-change="validate"
+    phx-submit="submit"
+  >
+    <div>
+      <%= label f, :nickname, "Put your nickname"%>
+      <%= text_input f, :nickname, disabled: @searching_game? %>
+    </div>
+
+    <div>
+      <%= submit "Search for a game", disabled: !@changeset.valid? or @searching_game? %>
+    </div>
+  </.form>
+</div>
+
