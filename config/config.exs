@@ -9,7 +9,8 @@ import Config
 
 config :tic_tac_toe,
   ecto_repos: [TicTacToe.Repo],
-  track_with_presence: true
+  track_with_presence: true,
+  secret_salt: System.get_env("SECRET_SALT")
 
 # Configures the endpoint
 config :tic_tac_toe, TicTacToeWeb.Endpoint,

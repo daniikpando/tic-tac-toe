@@ -15,7 +15,7 @@ defmodule TicTacToe.Services.Player.Tracker do
     @module.get(key)
   end
 
-  def subscribe(session_id, data) do
-    @module.subscribe(session_id, data)
+  def subscribe(player_id, data) do
+    @module.subscribe(player_id, data)
   end
 end

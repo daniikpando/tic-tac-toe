@@ -4,35 +4,34 @@ defmodule TicTacToeWeb.Live.Player do
   alias TicTacToe.Services.Player.Tracker, as: TrackerService
   alias TicTacToeWeb.Forms.PlayerForm
 
-  def mount(_, _, socket) do
+  def mount(_, %{"player_id" => player_id}, socket) do
     Process.monitor(self())
 
     player_changeset = PlayerForm.changeset(%{})
-    session_id = Ecto.UUID.generate()
 
     socket
     |> assign(:changeset, player_changeset)
     |> assign(:searching_game?, false)
-    |> assign(:session_id, session_id)
+    |> assign(:player_id, player_id)
     |> then(&{:ok, &1})
   end
 
-  def handle_event("validate", %{"party_form" => party_form}, socket) do
-    changeset = PlayerForm.changeset(party_form, action: :validate)
+  def handle_event("validate", %{"player_form" => player_form}, socket) do
+    changeset = PlayerForm.changeset(player_form, action: :validate)
 
     {:noreply, assign(socket, :changeset, changeset)}
   end
 
-  def handle_event("submit", %{"party_form" => party_form}, socket) do
-    session_id = socket.assigns.session_id
-    changeset = PlayerForm.changeset(party_form, action: :validate)
+  def handle_event("submit", %{"player_form" => player_form}, socket) do
+    player_id = socket.assigns.player_id
+    changeset = PlayerForm.changeset(player_form, action: :validate)
 
     if changeset.valid? do
       %{changes: %{nickname: nickname}} = changeset
 
       data = %{nickname: nickname, pid: self()}
 
-      TrackerService.subscribe(session_id, data)
+      TrackerService.subscribe(player_id, data)
 
       {:noreply,
        socket
@@ -44,13 +43,13 @@ defmodule TicTacToeWeb.Live.Player do
   end
 
   def handle_info({:game_started, %{game_id: game_id}}, socket) do
-    {:noreply, put_flash(socket, :info, "Redirected to game #{game_id}")}
+    {:noreply, redirect(socket, to: Routes.game_path(socket, :game, game_id))}
   end
 
   def handle_info({:DOWN, _ref, :process, _pid, _reason}, socket) do
-    session_id = socket.assigns.session_id
+    player_id = socket.assigns.player_id
 
-    TrackerService.delete(self(), session_id)
+    TrackerService.delete(self(), player_id)
 
     {:noreply, socket}
   end

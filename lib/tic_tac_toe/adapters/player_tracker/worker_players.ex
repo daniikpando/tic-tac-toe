@@ -7,17 +7,17 @@ defmodule TicTacToe.Adapters.PlayerTracker.WorkerPlayers do
     GenServer.call(UnmatchedPlayers, :get)
   end
 
-  def delete(_pid, session_id) do
-    GenServer.call(UnmatchedPlayers, {:delete, session_id})
+  def delete(_pid, player_id) do
+    GenServer.call(UnmatchedPlayers, {:delete, player_id})
   end
 
-  def get(session_id) do
+  def get(player_id) do
     state = get_all()
 
-    Map.get(state, session_id)
+    Map.get(state, player_id)
   end
 
-  def subscribe(session_id, %{nickname: _, pid: _} = data) do
-    GenServer.cast(UnmatchedPlayers, {:join, {session_id, data}})
+  def subscribe(player_id, %{nickname: _, pid: _} = data) do
+    GenServer.cast(UnmatchedPlayers, {:join, {player_id, data}})
   end
 end

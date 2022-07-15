@@ -9,19 +9,19 @@ defmodule TicTacToe.Adapters.PlayerTracker.PresencePlayers do
     Presence.list(@topic)
   end
 
-  def delete(pid, session_id) do
-    :ok = Presence.untrack(pid, @topic, session_id)
+  def delete(pid, player_id) do
+    :ok = Presence.untrack(pid, @topic, player_id)
   end
 
-  def get(session_id) do
+  def get(player_id) do
     @topic
-    |> Presence.get_by_key(session_id)
+    |> Presence.get_by_key(player_id)
     |> Map.fetch!(:metas)
     |> hd()
   end
 
-  def subscribe(session_id, data) do
-    {:ok, _} = Presence.track(self(), @topic, session_id, data)
+  def subscribe(player_id, data) do
+    {:ok, _} = Presence.track(self(), @topic, player_id, data)
 
     :ok
   end

@@ -14,4 +14,8 @@ defmodule TicTacToe.Variables do
       TicTacToe.Adapters.PlayerTracker.WorkerPlayers
     end
   end
+
+  def get_salt do
+    Application.fetch_env!(:tic_tac_toe, :secret_salt)
+  end
 end

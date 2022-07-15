@@ -1,6 +1,8 @@
 defmodule TicTacToeWeb.Router do
   use TicTacToeWeb, :router
 
+  import TicTacToeWeb.Middlewares.SessionToken
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -14,22 +16,25 @@ defmodule TicTacToeWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # pipeline :session_token do
-  #   plug :gen_token
-  # end
+  pipeline :session_token do
+    plug :generate
+  end
+
+  pipeline :verify_token do
+    plug :verify
+  end
 
   scope "/", TicTacToeWeb.Live do
-    pipe_through :browser
+    pipe_through [:browser, :session_token]
 
     live "/", Player, :new
+  end
+
+  scope "/", TicTacToeWeb.Live do
+    pipe_through [:browser, :verify_token]
 
     live "/:game_id", Game, :game
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", TicTacToeWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #
