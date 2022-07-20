@@ -1,5 +1,7 @@
 defmodule TicTacToe.Services.Player.MatchService do
+  alias TicTacToe.Contexts.Game.State, as: GameState
   alias TicTacToe.Services.Player.TrackerService
+  alias TicTacToe.Workers.Game.GameSupervisor
 
   @spec create_games_for_unmatch_players :: :ok
   def create_games_for_unmatch_players do
@@ -12,16 +14,26 @@ defmodule TicTacToe.Services.Player.MatchService do
       [_, _] = selected_players ->
         game_id = Ecto.UUID.generate()
 
-        for player <- selected_players do
-          %{pid: player_pid} = TrackerService.get(player)
+        players =
+          Enum.map(selected_players, fn player_id ->
+            TrackerService.get(player_id)
+          end)
 
+        :ok = create_game(game_id, players)
+
+        for player <- players do
+          %{pid: player_pid, id: player_id} = player
           send(player_pid, {:game_started, %{game_id: game_id}})
-
-          :ok = TrackerService.delete(player_pid, player)
+          :ok = TrackerService.delete(player_pid, player_id)
         end
 
       _ ->
         :ok
     end)
+  end
+
+  @spec create_game(GameState.game_id(), [map()]) :: :ok | {:error, :ignore | :invalid}
+  defp create_game(game_id, [_, _] = players) do
+    GameSupervisor.start_child(game_id, players)
   end
 end

@@ -1,7 +1,7 @@
 defmodule TicTacToeWeb.Live.Player do
   use TicTacToeWeb, :live_view
 
-  alias TicTacToe.Services.Player.Tracker, as: TrackerService
+  alias TicTacToe.Services.Player.TrackerService
   alias TicTacToeWeb.Forms.PlayerForm
 
   def mount(_, %{"player_id" => player_id}, socket) do
@@ -29,7 +29,7 @@ defmodule TicTacToeWeb.Live.Player do
     if changeset.valid? do
       %{changes: %{nickname: nickname}} = changeset
 
-      data = %{nickname: nickname, pid: self()}
+      data = %{id: player_id, nickname: nickname, pid: self()}
 
       TrackerService.subscribe(player_id, data)
 

@@ -10,5 +10,10 @@ defmodule TicTacToe.Adapters.Game.Spec do
   @doc """
   Gets the pid of the game.
   """
-  @callback get_pid(GameState.game_id()) :: pid()
+  @callback get_pid(GameState.game_id()) :: pid() | nil
+
+  @doc """
+  Gets a player of a game.
+  """
+  @callback get_player(GameState.game_id(), Player.player_id()) :: Player.t()
 end

@@ -4,7 +4,8 @@ defmodule TicTacToe.Adapters.PlayerTracker.Spec do
 
   @type player_data :: %{
           nickname: String.t(),
-          pid: player_pid()
+          pid: player_pid(),
+          id: player_id()
         }
 
   @type players :: %{

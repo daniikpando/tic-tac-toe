@@ -72,4 +72,9 @@ defmodule TicTacToe.Services.Game.GameService do
 
     match?(%Player{}, player)
   end
+
+  @spec get_player(GameState.t(), Player.player_id()) :: Player.t()
+  def get_player(%GameState{} = game, player_id) do
+    %Player{} = Enum.find(game.players, fn player -> player.id == player_id end)
+  end
 end
