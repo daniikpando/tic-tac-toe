@@ -1,4 +1,4 @@
-defmodule TicTacToe.Workers.UnmatchedPlayers do
+defmodule TicTacToe.Workers.Player.UnmatchedPlayers do
   use GenServer
 
   def start_link(_) do

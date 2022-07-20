@@ -19,8 +19,9 @@ defmodule TicTacToe.Application do
       # Start the Endpoint (http/https)
       TicTacToeWeb.Endpoint,
       # Start a worker by calling: TicTacToe.Worker.start_link(arg)
-      {TicTacToe.Workers.UnmatchedPlayers, %{}},
-      {TicTacToe.Workers.MatchEngine, %{}}
+      {TicTacToe.Workers.Player.UnmatchedPlayers, %{}},
+      {TicTacToe.Workers.Player.MatchEngine, %{}},
+      TicTacToe.Workers.Game.GameSupervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

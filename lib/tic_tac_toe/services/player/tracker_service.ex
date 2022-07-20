@@ -1,4 +1,4 @@
-defmodule TicTacToe.Services.Player.Tracker do
+defmodule TicTacToe.Services.Player.TrackerService do
   alias TicTacToe.Variables
 
   @module Variables.player_tracker_module()
