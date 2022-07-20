@@ -53,4 +53,13 @@ defmodule TicTacToeWeb.Live.Player do
 
     {:noreply, socket}
   end
+
+  @spec get_button_label(searching_game? :: boolean()) :: String.t()
+  defp get_button_label(searching_game?) do
+    if searching_game? do
+      "Searching an oponent"
+    else
+      "Search for a game"
+    end
+  end
 end

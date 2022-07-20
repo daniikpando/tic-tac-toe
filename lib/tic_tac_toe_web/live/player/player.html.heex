@@ -1,7 +1,8 @@
-<div>
-  <%= live_title_tag("❌ ⭕ | Game") %>
-  <.form 
-    id="party-form"
+<.container max_width="md" no_padding_on_mobile={true} class="!h-screen">
+  <%= live_title_tag("❌ ⭕ Game") %>
+  <div> 
+  <.form
+    id="player-form"
     for={@changeset}
     let={f}
     as={:player_form}
@@ -9,13 +10,25 @@
     phx-submit="submit"
   >
     <div>
-      <%= label f, :nickname, "Put your nickname"%>
-      <%= text_input f, :nickname, disabled: @searching_game? %>
+      <.form_label form={f} field={:nickname} />
+      <.text_input
+        form={f}
+        field={:nickname}
+        type="text_input"
+        placeholder="Put your nickname"
+        disabled={@searching_game?}
+      />
     </div>
 
-    <div>
-      <%= submit "Search for a game", disabled: !@changeset.valid? or @searching_game? %>
+    <div class="mt-5">
+      <.button
+        color="primary"
+        label={get_button_label(@searching_game?)}
+        loading={@searching_game?}
+        variant="shadow"
+        disabled={!@changeset.valid? or @searching_game?}
+      />
     </div>
   </.form>
-</div>
-
+  </div>
+</.container>

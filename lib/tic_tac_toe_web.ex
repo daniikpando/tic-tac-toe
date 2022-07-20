@@ -98,6 +98,8 @@ defmodule TicTacToeWeb do
       import TicTacToeWeb.ErrorHelpers
       import TicTacToeWeb.Gettext
       alias TicTacToeWeb.Router.Helpers, as: Routes
+
+      use PetalComponents
     end
   end
 

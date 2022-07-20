@@ -41,6 +41,23 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
+# Configure tailwind
+config :tailwind,
+  version: "3.1.6",
+  default: [
+    args: ~w(
+    --config=tailwind.config.js
+    --input=css/app.css
+    --output=../priv/static/assets/app.css
+  ),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
+# Configure Petal components
+config :petal_components,
+       :error_translator_function,
+       {TicTacToeWeb.ErrorHelpers, :translate_error}
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
