@@ -1,20 +1,21 @@
-<.container class="my-10" max_width="full">
-  <.container max_width="md" no_padding_on_mobile={true}>
-    <.alert
-      color="info"
-      class="mb-5"
-      label={live_flash(@flash, :info)}
-      phx-click="lv:clear-flash"
-      phx-value-key="info"
-    />
+<div class="px-5 md:px-10">
+  <.alert
+    with_icon
+    close_button_properties={["phx-click": "lv:clear-flash"]}
+    color="info"
+    class="mb-5"
+    label={live_flash(@flash, :info)}
+    phx-value-key="info"
+  />
 
-    <.alert
-      color="danger"
-      class="mb-5"
-      label={live_flash(@flash, :error)}
-      phx-click="lv:clear-flash"
-      phx-value-key="error"
-    />
-  </.container>
+  <.alert
+    with_icon
+    close_button_properties={["phx-click": "lv:clear-flash"]}
+    color="danger"
+    class="mb-5"
+    label={live_flash(@flash, :error)}
+    phx-value-key="error"
+  />
+
   <%= @inner_content %>
-</.container>
+</div>

@@ -1,1 +1,37 @@
-<h1>Welcome Player <%= @player.nickname %></h1>
+<.container
+  max_width="sm"
+  no_padding_on_mobile={true}
+  class="w-[300px] md:w-[450px] lg:w-[600px] h-[300px] md:h-[450px] lg:h-[600px]"
+>
+  <div
+    id="board"
+    class="board grid grid-cols-3 grid-rows-3 w-full h-full gap-x-2 gap-y-2 bg-gray-900 dark:bg-white"
+  >
+    <%= for %{point: {x, y}, icon: icon} <- @board_positions do %>
+      <div
+        class="h-4/12 bg-white dark:bg-gray-900 cursor-pointer"
+        phx-click="selected_point"
+        phx-value-x_axis={x}
+        phx-value-y_axis={y}
+      >
+        <div class="w-full h-full flex justify-center items-center font-bold text-7xl md:text-9xl text-gray-900 dark:text-white">
+          <%= icon %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="w-full">
+    <div class="text-center self-start">
+      <%= @current_player.nickname %>
+    </div>
+
+    <div class="text-center self-center">
+      -
+    </div>
+
+    <div class="text-center self-end">
+      <%= @oponent_player.nickname %>
+    </div>
+  </div>
+</.container>

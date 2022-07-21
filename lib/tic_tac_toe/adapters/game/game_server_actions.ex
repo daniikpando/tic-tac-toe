@@ -15,6 +15,11 @@ defmodule TicTacToe.Adapters.Game.GameServerActions do
     GenServer.call(GameServer.via_tuple(game_id), {:get_player, player_id})
   end
 
+  @spec get_players(GameState.game_id()) :: [Player.t()]
+  def get_players(game_id) do
+    GenServer.call(GameServer.via_tuple(game_id), :get_players)
+  end
+
   @spec get_pid(GameState.game_id()) :: pid() | nil
   def get_pid(game_id) do
     GenServer.whereis(GameServer.via_tuple(game_id))

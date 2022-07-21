@@ -3,6 +3,7 @@
 
 let plugin = require('tailwindcss/plugin');
 const colors = require("tailwindcss/colors");
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
@@ -20,6 +21,9 @@ module.exports = {
       colors: {
         primary: colors.blue,
         secondary: colors.pink,
+      },
+      fontFamily: {
+        'sans': ['Neucha', ...defaultTheme.fontFamily.sans],
       },
     },
   },

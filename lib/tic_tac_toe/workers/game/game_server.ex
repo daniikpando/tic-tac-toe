@@ -39,6 +39,11 @@ defmodule TicTacToe.Workers.Game.GameServer do
     {:reply, GameService.get_player(game, player_id), game}
   end
 
+  @impl true
+  def handle_call(:get_players, _from, game) do
+    {:reply, game.players, game}
+  end
+
   def via_tuple(game_id) do
     {:global, topic(game_id)}
   end

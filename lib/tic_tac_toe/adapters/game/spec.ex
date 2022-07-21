@@ -16,4 +16,9 @@ defmodule TicTacToe.Adapters.Game.Spec do
   Gets a player of a game.
   """
   @callback get_player(GameState.game_id(), Player.player_id()) :: Player.t()
+
+  @doc """
+  Gets players of a game.
+  """
+  @callback get_players(GameState.game_id()) :: [Player.t()]
 end
