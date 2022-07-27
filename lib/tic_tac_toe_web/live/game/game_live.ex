@@ -1,4 +1,4 @@
-defmodule TicTacToeWeb.Live.Game do
+defmodule TicTacToeWeb.Live.GameLive do
   use TicTacToeWeb, :live_view
   alias TicTacToe.Adapters.Game.GameServerActions
 

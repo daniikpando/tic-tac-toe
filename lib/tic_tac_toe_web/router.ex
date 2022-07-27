@@ -27,13 +27,13 @@ defmodule TicTacToeWeb.Router do
   scope "/", TicTacToeWeb.Live do
     pipe_through [:browser, :session_token]
 
-    live "/", Player, :new
+    live "/", PlayerLive, :new
   end
 
   scope "/", TicTacToeWeb.Live do
     pipe_through [:browser, :verify_token]
 
-    live "/games/:game_id", Game, :game
+    live "/games/:game_id", GameLive, :game
   end
 
   # Enables LiveDashboard only for development

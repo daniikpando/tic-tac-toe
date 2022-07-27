@@ -1,4 +1,4 @@
-defmodule TicTacToeWeb.Live.Player do
+defmodule TicTacToeWeb.Live.PlayerLive do
   use TicTacToeWeb, :live_view
 
   alias TicTacToe.Services.Player.TrackerService
