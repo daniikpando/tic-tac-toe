@@ -5,6 +5,7 @@ Task to finish the first version of tic tac toe game.
 ## 1.0
 - [x] Can be able to access to phoenix local server in local network.
 - [x] Rename liveviews (game -> game_live, player -> player_live).
+- [x] Update elixir, erlang and libraries 
 - [ ] Manage the player events with game server (centralized engine), not each liveview (peer to peer strategy).
 - [ ] Manage player turn with game server.
 - [ ] Draw events in the DOM.
